@@ -475,14 +475,16 @@ details.ap-section[open] .ap-section-chevron { transform: rotate(90deg); }
 .ap-btn:hover { opacity: 0.85; }
 .ap-btn-primary { background: #FE4D00; color: #FDFDFD; }
 .ap-btn-secondary { background: #F8F8F8; color: #212C6A; border: 1px solid #CBCDD2; }
-.ap-copy-confirm {
+.ap-copy-confirm, .ap-send-confirm, .ap-send-error {
   font-family: Poppins, sans-serif;
   font-size: 12px;
-  color: #28B95F;
   opacity: 0;
   transition: opacity 0.3s;
 }
-.ap-copy-confirm.show { opacity: 1; }
+.ap-copy-confirm { color: #28B95F; }
+.ap-send-confirm { color: #28B95F; }
+.ap-send-error { color: #FF4F95; }
+.ap-copy-confirm.show, .ap-send-confirm.show, .ap-send-error.show { opacity: 1; }
 
 /* ── Footer ── */
 footer {
@@ -1012,10 +1014,12 @@ footer .watermark {
         </div></div>
       </details>
       <div class="ap-actions">
-        <button class="ap-btn ap-btn-primary" onclick="sendToNexudus()">Send to Nexudus</button>
+        <button id="send-btn" class="ap-btn ap-btn-primary" onclick="sendToNexudus()">Send to Nexudus</button>
         <button class="ap-btn ap-btn-secondary" onclick="downloadResponses()">Download</button>
         <button class="ap-btn ap-btn-secondary" onclick="copyResponses()">Copy to clipboard</button>
         <span class="ap-copy-confirm" id="copy-confirm">Copied!</span>
+        <span class="ap-send-confirm" id="send-confirm">Sent to Nexudus ✓</span>
+        <span class="ap-send-error" id="send-error">Something went wrong — please try again or download and email instead.</span>
       </div>
     </form></div></div>
     </div>
@@ -1059,11 +1063,55 @@ footer .watermark {
       return text;
     }
 
+    function collectResponsesJson() {
+      const inputs = document.querySelectorAll('.ap-input');
+      const payload = {
+        business: (document.querySelector('h1') || {}).textContent || '',
+        submitted_at: new Date().toISOString(),
+        responses: []
+      };
+      inputs.forEach(el => {
+        const value = el.value.trim();
+        if (!value) return;
+        payload.responses.push({
+          section: el.dataset.section || '',
+          check: el.dataset.check || '',
+          field: el.dataset.field || '',
+          value: value
+        });
+      });
+      return payload;
+    }
+
     function sendToNexudus() {
-      const text = collectResponses();
-      const subject = encodeURIComponent(document.querySelector('h1') ? 'AI Agent Audit — ' + document.querySelector('h1').textContent : 'AI Agent Audit');
-      const body = encodeURIComponent(text);
-      window.location.href = 'mailto:sam@nexudus.com?subject=' + subject + '&body=' + body;
+      const WEBHOOK_URL = '';
+      if (!WEBHOOK_URL) {
+        alert('Webhook URL not configured yet.');
+        return;
+      }
+      const payload = collectResponsesJson();
+      if (!payload.responses.length) {
+        alert('Please fill in at least one field before submitting.');
+        return;
+      }
+      const btn = document.getElementById('send-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      .then(r => {
+        if (!r.ok) throw new Error('non-2xx');
+        btn.textContent = 'Sent ✓';
+        document.getElementById('send-confirm').classList.add('show');
+      })
+      .catch(() => {
+        btn.textContent = 'Send to Nexudus';
+        btn.disabled = false;
+        document.getElementById('send-error').classList.add('show');
+      });
     }
 
     function downloadResponses() {
