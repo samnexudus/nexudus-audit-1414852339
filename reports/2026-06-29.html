@@ -339,70 +339,127 @@ details.section[open] .section-chevron { transform: rotate(90deg); }
 }
 
 /* ── Action Plan ── */
-.ap-section {
-  margin-bottom: 28px;
+details.ap-section {
+  margin-bottom: 12px;
+  border: 1px solid #ECECEC;
+  border-radius: 12px;
+  overflow: hidden;
 }
+details.ap-section summary { list-style: none; }
+details.ap-section summary::-webkit-details-marker { display: none; }
+
 .ap-section-title {
   font-family: Parkinsans, sans-serif;
   font-size: 15px;
   font-weight: 600;
   color: #212C6A;
+  padding: 14px 18px;
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ECECEC;
+  cursor: pointer;
+  user-select: none;
+  background: #FDFDFD;
+  transition: background 0.15s;
 }
-.ap-field {
-  margin-bottom: 16px;
-  padding: 14px 16px;
+.ap-section-title:hover { background: #F8F8F8; }
+.ap-section-title .orange-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #FE4D00;
+  flex-shrink: 0;
+}
+.ap-section-title-text { flex: 1; }
+.ap-section-count {
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #98989F;
+}
+.ap-section-chevron {
+  font-size: 18px;
+  color: #98989F;
+  transition: transform 0.2s;
+  line-height: 1;
+}
+details.ap-section[open] .ap-section-chevron { transform: rotate(90deg); }
+.ap-section-body {
+  padding: 8px 14px 14px;
+  background: #F8F8F8;
+  border-top: 1px solid #ECECEC;
+}
+
+.ap-check {
   background: #FDFDFD;
   border: 1px solid #ECECEC;
   border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 10px;
 }
-.ap-field-header {
+.ap-check-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
-.ap-field-header label {
+.ap-check-name {
   font-family: Parkinsans, sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: #212C6A;
-  cursor: default;
 }
 .ap-hint {
   font-family: Poppins, sans-serif;
   font-size: 12px;
   color: #98989F;
+  margin-bottom: 10px;
+}
+.ap-field-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 8px;
 }
-.ap-input {
-  width: 100%;
+.ap-field-row label {
+  font-family: Parkinsans, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #212C6A;
+  min-width: 180px;
+  padding-top: 8px;
+  flex-shrink: 0;
+}
+.ap-input, .ap-input-text {
+  flex: 1;
   font-family: Poppins, sans-serif;
   font-size: 13px;
   color: #535060;
   background: #F8F8F8;
   border: 1px solid #CBCDD2;
   border-radius: 6px;
-  padding: 8px 10px;
-  resize: vertical;
+  padding: 7px 10px;
   outline: none;
   transition: border-color 0.15s;
+  width: 100%;
 }
-.ap-input:focus {
+.ap-input { resize: vertical; }
+.ap-input:focus, .ap-input-text:focus {
   border-color: #5757F4;
   background: #FDFDFD;
+}
+.ap-task-note {
+  font-family: Poppins, sans-serif;
+  font-size: 13px;
+  color: #98989F;
+  font-style: italic;
+  padding: 4px 0;
 }
 .ap-actions {
   display: flex;
   gap: 10px;
   align-items: center;
-  padding-top: 8px;
-  margin-top: 8px;
+  padding: 16px 0 4px;
+  margin-top: 16px;
   border-top: 1px solid #ECECEC;
 }
 .ap-btn {
@@ -823,131 +880,182 @@ footer .watermark {
     </div>
     </div>
   </details></div><div class="tab-panel" id="tab-3">
-    <p class="tab-description">Fill in the details below for each item that needs attention. When you're done, use the buttons at the bottom to send your responses to the Nexudus team.</p>
+    <p class="tab-description">Fill in the details below for each gap found in the audit. When you're done, send them directly to the Nexudus team or download a copy for your records.</p>
     <form id="action-plan-form" onsubmit="return false;">
       
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Location Details</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-1">Location fields</label></div>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Location Details</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">Location fields</span></div>
           <div class="ap-hint">→ Missing: City, Postcode. Fill in these fields on your business profile.</div>
-          <textarea id="ap-1" class="ap-input" data-section="Location Details" data-check="Location fields" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>AI Conversation Assistant — FAQ Articles</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-2">1 article with thin body content</label></div>
+          <p class="ap-task-note">Action required: Missing: City, Postcode. Fill in these fields on your business profile.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">AI Conversation Assistant — FAQ Articles</span>
+          <span class="ap-section-count">4 items</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">1 article with thin body content</span></div>
           <div class="ap-hint">→ Expand these articles — short content reduces the AI&#x27;s ability to find relevant answers.</div>
-          <textarea id="ap-2" class="ap-input" data-section="AI Conversation Assistant — FAQ Articles" data-check="1 article with thin body content" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: Expand these articles — short content reduces the AI&#x27;s ability to find relevant answers.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-3">21 of 23 articles missing summaries</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">21 of 23 articles missing summaries</span></div>
           <div class="ap-hint">→ Add a concise SummaryText to each article.</div>
-          <textarea id="ap-3" class="ap-input" data-section="AI Conversation Assistant — FAQ Articles" data-check="21 of 23 articles missing summaries" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: Add a concise SummaryText to each article.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-4">FAQ content is up to date</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">FAQ content is up to date</span></div>
           <div class="ap-hint">→ Review and refresh these articles to ensure the AI gives accurate answers.</div>
-          <textarea id="ap-4" class="ap-input" data-section="AI Conversation Assistant — FAQ Articles" data-check="FAQ content is up to date" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: Review and refresh these articles to ensure the AI gives accurate answers.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-5">1 expected topic not covered</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">1 expected topic not covered</span></div>
           <div class="ap-hint">→ Add articles covering these topics to improve AI answer coverage.</div>
-          <textarea id="ap-5" class="ap-input" data-section="AI Conversation Assistant — FAQ Articles" data-check="1 expected topic not covered" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Rooms &amp; Resources</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge fail">FAIL</span><label for="ap-6">No visible rooms or resources</label></div>
+          <p class="ap-task-note">Action required: Add articles covering these topics to improve AI answer coverage.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Rooms &amp; Resources</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge fail">FAIL</span><span class="ap-check-name">No visible rooms or resources</span></div>
           <div class="ap-hint">→ Create and publish bookable resources in Nexudus.</div>
-          <textarea id="ap-6" class="ap-input" data-section="Rooms &amp; Resources" data-check="No visible rooms or resources" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Day Passes</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-7">11 products may be a day pass set to the wrong product type</label></div>
+          <p class="ap-task-note">Action required: Create and publish bookable resources in Nexudus.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Day Passes</span>
+          <span class="ap-section-count">3 items</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">11 products may be a day pass set to the wrong product type</span></div>
           <div class="ap-hint">→ These look like day pass products but are not set to product type &#x27;Day Pass&#x27;. Without the correct type they won&#x27;t appear in AI day pass results and can&#x27;t use the AI visibility settings.</div>
-          <textarea id="ap-7" class="ap-input" data-section="Day Passes" data-check="11 products may be a day pass set to the wrong product type" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: These look like day pass products but are not set to product type &#x27;Day Pass&#x27;. Without the correct type they won&#x27;t appear in AI day pass results and can&#x27;t use the AI visibility settings.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge fail">FAIL</span><label for="ap-8">No day pass products found</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge fail">FAIL</span><span class="ap-check-name">No day pass products found</span></div>
           <div class="ap-hint">→ Create at least one day pass product in Nexudus (Portal › Products) with SystemProductType = Day Pass.</div>
-          <textarea id="ap-8" class="ap-input" data-section="Day Passes" data-check="No day pass products found" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: Create at least one day pass product in Nexudus (Portal › Products) with SystemProductType = Day Pass.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-9">No bookable day-use resources</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">No bookable day-use resources</span></div>
           <div class="ap-hint">→ If you have hot desks or day offices, set their Resource Kind so the AI can include them in results.</div>
-          <textarea id="ap-9" class="ap-input" data-section="Day Passes" data-check="No bookable day-use resources" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Membership Plans</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-10">3 plans may be a Hot Desk plan set to the wrong type</label></div>
+          <p class="ap-task-note">Action required: If you have hot desks or day offices, set their Resource Kind so the AI can include them in results.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Membership Plans</span>
+          <span class="ap-section-count">2 items</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">3 plans may be a Hot Desk plan set to the wrong type</span></div>
           <div class="ap-hint">→ Set the plan type to &#x27;Full-time Hot Desk or Part-time Hot Desk&#x27; so the AI matches it when prospects ask about hot desk options.</div>
-          <textarea id="ap-10" class="ap-input" data-section="Membership Plans" data-check="3 plans may be a Hot Desk plan set to the wrong type" placeholder="Your response…" rows="2"></textarea>
+          <p class="ap-task-note">Action required: Set the plan type to &#x27;Full-time Hot Desk or Part-time Hot Desk&#x27; so the AI matches it when prospects ask about hot desk options.</p>
         </div>
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge fail">FAIL</span><label for="ap-11">No plans published to AI</label></div>
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge fail">FAIL</span><span class="ap-check-name">No plans published to AI</span></div>
           <div class="ap-hint">→ Enable &#x27;Available to AI&#x27; on each plan you want the AI to recommend.</div>
-          <textarea id="ap-11" class="ap-input" data-section="Membership Plans" data-check="No plans published to AI" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Private Offices &amp; Tours</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge fail">FAIL</span><label for="ap-12">No private offices published to AI</label></div>
+          <p class="ap-task-note">Action required: Enable &#x27;Available to AI&#x27; on each plan you want the AI to recommend.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Private Offices &amp; Tours</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge fail">FAIL</span><span class="ap-check-name">No private offices published to AI</span></div>
           <div class="ap-hint">→ Enable &#x27;Available to AI&#x27; on each office you want the AI to surface.</div>
-          <textarea id="ap-12" class="ap-input" data-section="Private Offices &amp; Tours" data-check="No private offices published to AI" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Escalating to Human Support</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-13">AI escalation to human support not enabled</label></div>
+          <p class="ap-task-note">Action required: Enable &#x27;Available to AI&#x27; on each office you want the AI to surface.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Escalating to Human Support</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">AI escalation to human support not enabled</span></div>
           <div class="ap-hint">→ Enable &#x27;AI escalation to human support&#x27; under Settings › AI Assistants › Channels › AI escalation.</div>
-          <textarea id="ap-13" class="ap-input" data-section="Escalating to Human Support" data-check="AI escalation to human support not enabled" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>WhatsApp</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-14">WhatsApp channel not enabled</label></div>
+          <p class="ap-task-note">Action required: Enable &#x27;AI escalation to human support&#x27; under Settings › AI Assistants › Channels › AI escalation.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">WhatsApp</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">WhatsApp channel not enabled</span></div>
           <div class="ap-hint">→ Enable WhatsApp under Settings › AI Assistants › Channels › WhatsApp and complete the Twilio configuration.</div>
-          <textarea id="ap-14" class="ap-input" data-section="WhatsApp" data-check="WhatsApp channel not enabled" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Email</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-15">No email conversations detected</label></div>
+          <p class="ap-task-note">Action required: Enable WhatsApp under Settings › AI Assistants › Channels › WhatsApp and complete the Twilio configuration.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Email</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">No email conversations detected</span></div>
           <div class="ap-hint">→ If you intend to use the email channel, check your email account configuration under Settings › AI Assistants › Channels › Email. If email is not yet in use, you can ignore this.</div>
-          <textarea id="ap-15" class="ap-input" data-section="Email" data-check="No email conversations detected" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
-      <div class="ap-section">
-        <div class="ap-section-title"><span class="orange-dot"></span>Voice</div>
-        
-        <div class="ap-field">
-          <div class="ap-field-header"><span class="badge warn">WARN</span><label for="ap-16">Voice channel not enabled</label></div>
+          <p class="ap-task-note">Action required: If you intend to use the email channel, check your email account configuration under Settings › AI Assistants › Channels › Email. If email is not yet in use, you can ignore this.</p>
+        </div></div>
+      </details>
+      <details class="ap-section" open>
+        <summary class="ap-section-title">
+          <span class="orange-dot"></span>
+          <span class="ap-section-title-text">Voice</span>
+          <span class="ap-section-count">1 item</span>
+          <span class="ap-section-chevron">›</span>
+        </summary>
+        <div class="ap-section-body">
+        <div class="ap-check">
+          <div class="ap-check-header"><span class="badge warn">WARN</span><span class="ap-check-name">Voice channel not enabled</span></div>
           <div class="ap-hint">→ Enable Voice under Settings › AI Assistants › Channels › Voice and complete the Twilio and ElevenLabs configuration.</div>
-          <textarea id="ap-16" class="ap-input" data-section="Voice" data-check="Voice channel not enabled" placeholder="Your response…" rows="2"></textarea>
-        </div>
-      </div>
+          <p class="ap-task-note">Action required: Enable Voice under Settings › AI Assistants › Channels › Voice and complete the Twilio and ElevenLabs configuration.</p>
+        </div></div>
+      </details>
       <div class="ap-actions">
-        <button class="ap-btn ap-btn-primary" onclick="downloadResponses()">Download responses</button>
+        <button class="ap-btn ap-btn-primary" onclick="sendToNexudus()">Send to Nexudus</button>
+        <button class="ap-btn ap-btn-secondary" onclick="downloadResponses()">Download</button>
         <button class="ap-btn ap-btn-secondary" onclick="copyResponses()">Copy to clipboard</button>
         <span class="ap-copy-confirm" id="copy-confirm">Copied!</span>
       </div>
@@ -969,21 +1077,35 @@ footer .watermark {
     function collectResponses() {
       const nl = '\n';
       const inputs = document.querySelectorAll('.ap-input');
-      let text = 'AI Agent Audit — Action Plan Responses' + nl;
-      text += '========================================' + nl + nl;
+      let text = 'AI Agent Audit — Action Plan' + nl;
+      text += '=============================' + nl + nl;
       let currentSection = '';
+      let currentCheck = '';
       inputs.forEach(el => {
-        const section = el.dataset.section;
-        const check = el.dataset.check;
+        const section = el.dataset.section || '';
+        const check = el.dataset.check || '';
+        const fieldLabel = el.dataset.field || check;
         const value = el.value.trim();
         if (!value) return;
         if (section !== currentSection) {
           text += (currentSection ? nl : '') + section + nl + '-'.repeat(section.length) + nl;
           currentSection = section;
+          currentCheck = '';
         }
-        text += check + ':' + nl + value + nl + nl;
+        if (check !== currentCheck) {
+          text += nl + check + nl;
+          currentCheck = check;
+        }
+        text += '  ' + fieldLabel + ': ' + value + nl;
       });
       return text;
+    }
+
+    function sendToNexudus() {
+      const text = collectResponses();
+      const subject = encodeURIComponent(document.querySelector('h1') ? 'AI Agent Audit — ' + document.querySelector('h1').textContent : 'AI Agent Audit');
+      const body = encodeURIComponent(text);
+      window.location.href = 'mailto:sam@nexudus.com?subject=' + subject + '&body=' + body;
     }
 
     function downloadResponses() {
